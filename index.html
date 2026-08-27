@@ -4,23 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#e91e63">
-    <meta name="description" content="مايلي - كلمات في الحب تحدي و تسلي، تطبيق موجه للمتزوجين لإنعاش الرومانسية">
+    <meta name="description" content="تسالي كلمات في الحب - تحدي وتسلي للمتزوجين، تطبيق لتنشيط الرومانسية في العلاقة الزوجية">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" sizes="192x192" href="img/icon-192.svg">
     <link rel="apple-touch-icon" href="img/icon-192.svg">
-    <title>مايلي - كلمات في الحب</title>
+    <title>تسالي كلمات في الحب 💕</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Ambient floating hearts (spawned by JS) -->
+    <div id="hearts-layer" class="hearts-layer"></div>
+
+    <!-- AUDIO HINT OVERLAY -->
+    <div id="audio-hint" class="audio-hint" style="display:none;">
+        <div class="audio-hint-card">
+            <div class="audio-hint-icon">🎶</div>
+            <p>التطبيق يحتوي على مؤثرات صوتية رومانسية ممتعة</p>
+            <button class="btn-primary" id="audio-hint-ok">رائع! 🎵</button>
+        </div>
+    </div>
+
     <div id="app">
         <!-- Splash Screen -->
         <div id="splash-screen" class="screen active">
             <div class="splash-content">
-                <div class="splash-icon">💕</div>
-                <h1 class="splash-title">مايلي</h1>
-                <p class="splash-subtitle">كلمات في الحب</p>
+                <div class="splash-icon-wrap">
+                    <div class="splash-icon">💕</div>
+                    <div class="splash-ring ring-1"></div>
+                    <div class="splash-ring ring-2"></div>
+                </div>
+                <h1 class="splash-title">تسالي كلمات في الحب</h1>
+                <p class="splash-subtitle">قصة حبكما تُكتب كلمة بكلمة 💌</p>
                 <p class="splash-tagline">تحدي وتسلي للمتزوجين</p>
                 <div class="splash-loader">
                     <div class="loader-bar"></div>
@@ -28,26 +44,147 @@
             </div>
         </div>
 
+        <!-- Welcome / Romantic Intro Screen -->
+        <div id="welcome-screen" class="screen">
+            <div class="welcome-content">
+                <div class="welcome-badge">💍 علاقة رومانسية تدوم</div>
+                <h1 class="welcome-title">أهلاً بعشاق الحب!</h1>
+                <div class="welcome-card glass">
+                    <div class="welcome-quote">🌸</div>
+                    <p class="welcome-text">
+                        الرومانسية ليست رفاهية... بل هي <b>أكسجين العلاقة الزوجية</b>
+                    </p>
+                    <p class="welcome-sub">
+                        الزمن يمر، والروتين يتراكم، وكلمات الحب تختفي... لكن الحب الحقيقي يحتاج دائماً إلى وقود.
+                        هذا التطبيق صُمّم خصيصاً لكما ليعيد <b>الشغف والدفء والهمسات</b> إلى علاقتكما،
+                        من خلال كلمات الحب، والأسئلة الجريئة، والعجلة الرومانسية، والتحديات الممتعة.
+                    </p>
+                </div>
+
+                <div class="welcome-features">
+                    <div class="wf-card">
+                        <span class="wf-icon">💞</span>
+                        <span class="wf-text">كلمات حب كل يوم</span>
+                    </div>
+                    <div class="wf-card">
+                        <span class="wf-icon">🎰</span>
+                        <span class="wf-text">عجلات رومانسية</span>
+                    </div>
+                    <div class="wf-card">
+                        <span class="wf-icon">🔥</span>
+                        <span class="wf-text">تحديات جريئة</span>
+                    </div>
+                    <div class="wf-card">
+                        <span class="wf-icon">💌</span>
+                        <span class="wf-text">أسئلة صادقة</span>
+                    </div>
+                    <div class="wf-card">
+                        <span class="wf-icon">🧩</span>
+                        <span class="wf-text">ألغاز كلمات</span>
+                    </div>
+                    <div class="wf-card">
+                        <span class="wf-icon">🎭</span>
+                        <span class="wf-text">ألعاب استراحة</span>
+                    </div>
+                </div>
+
+                <button class="welcome-start-btn" id="welcome-start-btn">ابدأ رحلة الحب 💕</button>
+                <p class="welcome-note">بتسجيلكما وافقتما على أن التطبيق مخصّص للمتزوجين فقط</p>
+            </div>
+        </div>
+
+        <!-- Registration Screen -->
+        <div id="register-screen" class="screen">
+            <div class="register-content">
+                <div class="register-header">
+                    <div class="register-logo">💑</div>
+                    <h2>مرحباً بكما!</h2>
+                    <p>أدخلا بياناتكما لبدء الرحلة الرومانسية</p>
+                </div>
+
+                <form id="reg-form" class="register-form glass" novalidate>
+                    <label class="reg-field">
+                        <span class="reg-label">👤 الاسم :</span>
+                        <input type="text" id="reg-name" class="reg-input" placeholder="اكتب اسمك هنا..." autocomplete="off">
+                    </label>
+
+                    <label class="reg-field">
+                        <span class="reg-label">📧 البريد الإلكتروني :</span>
+                        <input type="email" id="reg-email" class="reg-input" placeholder="example@email.com" autocomplete="off" dir="ltr" style="text-align:right;">
+                    </label>
+
+                    <div class="reg-field">
+                        <span class="reg-label">⚧️ الجنس :</span>
+                        <div class="gender-options" id="reg-gender">
+                            <button type="button" class="gender-btn" data-gender="male">👨 رجل</button>
+                            <button type="button" class="gender-btn" data-gender="female">👩 امرأة</button>
+                        </div>
+                    </div>
+
+                    <label class="reg-field">
+                        <span class="reg-label">🎂 العمر :</span>
+                        <select id="reg-age" class="reg-input reg-select">
+                            <option value="">اختر عمرك...</option>
+                        </select>
+                    </label>
+
+                    <label class="reg-terms">
+                        <input type="checkbox" id="reg-terms" class="reg-checkbox">
+                        <span>أوافق على <a href="#" id="terms-link">الشروط العامة</a> وأقرّ بأني متزوج/ة وأحترم خصوصية المحتوى</span>
+                    </label>
+
+                    <p id="reg-error" class="reg-error"></p>
+
+                    <button type="submit" class="register-submit" id="register-submit">دخول للتطبيق 💕</button>
+                </form>
+
+                <p class="register-secure">🔒 جميع البيانات تُحفظ على جهازك فقط — خصوصيتك تهمّنا</p>
+            </div>
+        </div>
+
+        <!-- Terms Modal -->
+        <div id="terms-modal" class="terms-modal" style="display:none;">
+            <div class="terms-card">
+                <button class="terms-close" id="terms-close">✕</button>
+                <h3>📜 الشروط العامة</h3>
+                <ul class="terms-list">
+                    <li>💍 هذا التطبيق مخصّص <b>للمتزوجين فقط</b>، وهو وسيلة لتعزيز العلاقة بين الزوجين.</li>
+                    <li>🔒 نخترم خصوصيتكما تماماً، ولا نشارك أي من بياناتكما أو محتواكما مع أي طرف ثالث.</li>
+                    <li>📱 جميع البيانات تُحفظ <b>محلياً على جهازكما</b> فقط دون أي رفع إلى خوادم.</li>
+                    <li>💞 المحتوى موجّه لتقوية الروابط الزوجية باحترام وذوق رفيع.</li>
+                    <li>🙏 يُستخدم التطبيق بمسؤولية وتقدير للحياة الزوجية الخاصة.</li>
+                </ul>
+                <button class="btn-primary" id="terms-ok">وافقت على الشروط ✅</button>
+            </div>
+        </div>
+
         <!-- Home Screen -->
         <div id="home-screen" class="screen">
             <div class="home-header">
                 <div class="user-profile">
-                    <div class="avatar">💑</div>
+                    <div class="avatar" id="user-avatar">💑</div>
                     <div class="user-info">
                         <span class="username" id="display-username">زوجان</span>
                         <span class="level-badge" id="display-level">المستوى 1</span>
                     </div>
                 </div>
-                <div class="coins-display">
-                    <span class="coin-icon">💎</span>
-                    <span id="coins-count">50</span>
+                <div class="header-actions">
+                    <button class="sound-toggle" id="sound-toggle" title="الصوت">🔊</button>
+                    <div class="coins-display">
+                        <span class="coin-icon">💎</span>
+                        <span id="coins-count">50</span>
+                    </div>
                 </div>
             </div>
 
             <div class="home-banner">
                 <div class="banner-hearts">❤️ 💕 ❤️</div>
-                <h2>أهلاً بكم في رحلة الحب</h2>
-                <p>اكتشفوا كلمات الحب معاً</p>
+                <h2 id="home-greeting">أهلاً بكم في رحلة الحب</h2>
+                <p>جرّبا الأنشطة المختلفة كي تتجدّد رومانسيتكما كل يوم</p>
+            </div>
+
+            <div class="level-tabs" id="level-tabs">
+                <!-- Level tabs will be generated by JS -->
             </div>
 
             <div class="stages-map" id="stages-map">
@@ -218,6 +355,15 @@
                 <button class="spin-btn" id="spin-btn">🎰 دوّر!</button>
             </div>
 
+            <!-- Romantic Joke in Wheel -->
+            <div class="wheel-joke" id="wheel-joke">
+                <div class="wheel-joke-head">😂 نكتة العشاق</div>
+                <div class="wheel-joke-setup" id="wheel-joke-setup"></div>
+                <button class="wheel-joke-reveal" id="wheel-joke-reveal">أظهر البونطة 🙊</button>
+                <div class="wheel-joke-punch" id="wheel-joke-punch" style="display:none;"></div>
+                <button class="wheel-joke-next" id="wheel-joke-next">نكتة أخرى 🔄</button>
+            </div>
+
             <div class="wheel-result" id="wheel-result" style="display:none;">
                 <div class="result-card">
                     <div class="result-icon" id="result-icon">💕</div>
@@ -276,6 +422,11 @@
                         <div class="game-card-icon">🧠</div>
                         <div class="game-card-title">ذاكرة الحب</div>
                         <div class="game-card-desc">طابقوا الأزواج المتشابهة</div>
+                    </div>
+                    <div class="game-card" data-game="jokes">
+                        <div class="game-card-icon">😂</div>
+                        <div class="game-card-title">نكت رومانسية</div>
+                        <div class="game-card-desc">نكت حب تملأ العلاقة ضحكة ودفئاً</div>
                     </div>
                     <div class="game-card" data-game="challenge">
                         <div class="game-card-icon">⚡</div>
@@ -338,6 +489,7 @@
     </div>
 
     <script src="js/data.js"></script>
+    <script src="js/audio.js"></script>
     <script src="js/game.js"></script>
     <script src="js/wheel.js"></script>
     <script src="js/puzzle.js"></script>

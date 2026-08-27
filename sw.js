@@ -1,16 +1,19 @@
-const CACHE_NAME = 'mylove-v1';
+const CACHE_NAME = 'mylove-v4';
 const ASSETS = [
-    '/',
-    '/index.html',
-    '/css/style.css',
-    '/js/data.js',
-    '/js/game.js',
-    '/js/wheel.js',
-    '/js/puzzle.js',
-    '/js/games.js',
-    '/js/quiz.js',
-    '/js/app.js',
-    '/manifest.json'
+    './',
+    './index.html',
+    './css/style.css',
+    './js/data.js',
+    './js/audio.js',
+    './js/game.js',
+    './js/wheel.js',
+    './js/puzzle.js',
+    './js/games.js',
+    './js/quiz.js',
+    './js/app.js',
+    './manifest.json',
+    './img/icon-192.svg',
+    './img/icon-512.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -38,6 +41,6 @@ self.addEventListener('fetch', event => {
                     return fetchRes;
                 });
             });
-        }).catch(() => caches.match('/index.html'))
+        }).catch(() => caches.match('./index.html'))
     );
 });
