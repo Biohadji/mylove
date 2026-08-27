@@ -14,7 +14,6 @@ class RomanticGames {
         this.emotionMatched = 0;
         this.bottleSpinning = false;
         this.challengeInterval = null;
-        this.jokePunch = '';
     }
 
     init() {
@@ -46,8 +45,7 @@ class RomanticGames {
             'emotions': '🎭 مطابقة المشاعر',
             'compat': '💖 اختبار التوافق',
             'memory8': '🧠 ذاكرة الحب',
-            'challenge': '⚡ تحدي الأزواج',
-            'jokes': '😂 نكت رومانسية'
+            'challenge': '⚡ تحدي الأزواج'
         };
         document.getElementById('game-play-title').textContent = titles[gameId] || '';
 
@@ -63,7 +61,6 @@ class RomanticGames {
             case 'compat': this.initCompat(content); break;
             case 'memory8': this.initMemory8(content); break;
             case 'challenge': this.initChallenge(content); break;
-            case 'jokes': this.initJokes(content); break;
         }
     }
 
@@ -476,39 +473,6 @@ class RomanticGames {
         const m = Math.floor(s / 60);
         const sec = s % 60;
         return `${m}:${sec.toString().padStart(2, '0')}`;
-    }
-
-    /* =================== 9. ROMANTIC JOKES =================== */
-    initJokes(el) {
-        if (!ROMANTIC_JOKES.length) return;
-        this.jokePunch = '';
-        this.showJoke(el);
-    }
-
-    showJoke(el) {
-        const joke = ROMANTIC_JOKES[Math.floor(Math.random() * ROMANTIC_JOKES.length)];
-        this.jokePunch = joke.punch;
-        el.innerHTML = `
-            <div class="joke-card">
-                <div class="joke-card-head">😂 نكتة رومانسية</div>
-                <div class="joke-setup">${joke.setup}</div>
-                <button class="joke-reveal-btn" id="joke-reveal" onclick="games.revealJoke()">أظهر البونطة 🙊</button>
-                <div class="joke-punch" id="joke-punch" style="display:none;"></div>
-                <button class="game-action-btn gold" style="margin-top:14px;" onclick="games.showJoke(document.getElementById('game-play-content'))">نكتة أخرى 🔄</button>
-            </div>
-        `;
-        App.addCoins(1);
-        SFX.play('pop');
-    }
-
-    revealJoke() {
-        const punchEl = document.getElementById('joke-punch');
-        if (!punchEl) return;
-        punchEl.textContent = this.jokePunch || '';
-        punchEl.style.display = 'block';
-        const btn = document.getElementById('joke-reveal');
-        if (btn) btn.style.display = 'none';
-        SFX.play('success');
     }
 }
 

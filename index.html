@@ -355,15 +355,7 @@
                 <button class="spin-btn" id="spin-btn">🎰 دوّر!</button>
             </div>
 
-            <!-- Romantic Joke in Wheel -->
-            <div class="wheel-joke" id="wheel-joke">
-                <div class="wheel-joke-head">😂 نكتة العشاق</div>
-                <div class="wheel-joke-setup" id="wheel-joke-setup"></div>
-                <button class="wheel-joke-reveal" id="wheel-joke-reveal">أظهر البونطة 🙊</button>
-                <div class="wheel-joke-punch" id="wheel-joke-punch" style="display:none;"></div>
-                <button class="wheel-joke-next" id="wheel-joke-next">نكتة أخرى 🔄</button>
-            </div>
-
+            <!-- Wheel Result -->
             <div class="wheel-result" id="wheel-result" style="display:none;">
                 <div class="result-card">
                     <div class="result-icon" id="result-icon">💕</div>
@@ -423,11 +415,6 @@
                         <div class="game-card-title">ذاكرة الحب</div>
                         <div class="game-card-desc">طابقوا الأزواج المتشابهة</div>
                     </div>
-                    <div class="game-card" data-game="jokes">
-                        <div class="game-card-icon">😂</div>
-                        <div class="game-card-title">نكت رومانسية</div>
-                        <div class="game-card-desc">نكت حب تملأ العلاقة ضحكة ودفئاً</div>
-                    </div>
                     <div class="game-card" data-game="challenge">
                         <div class="game-card-icon">⚡</div>
                         <div class="game-card-title">تحدي الأزواج</div>
@@ -466,16 +453,17 @@
             <div class="quiz-card" id="quiz-card">
                 <div class="quiz-number" id="quiz-number">السؤال 1 من 10</div>
                 <div class="quiz-question" id="quiz-question">ما هو أكثر شيء يعجبك في شريك حياتك؟</div>
+                <div class="quiz-options" id="quiz-options"></div>
                 <div class="quiz-timer">
                     <div class="timer-bar" id="quiz-timer-bar"></div>
                 </div>
-                <div class="quiz-actions">
-                    <button class="quiz-action-btn" id="quiz-skip">تخطي ⏭️</button>
-                    <button class="quiz-action-btn" id="quiz-reveal">كشف الإجابة 👁️</button>
-                </div>
                 <div class="quiz-answer" id="quiz-answer" style="display:none;">
+                    <div class="quiz-feedback-label" id="quiz-feedback-label">أحسنتما!</div>
+                    <p class="quiz-answer-model" id="quiz-answer-model"></p>
                     <p id="quiz-answer-text"></p>
-                    <button class="btn-primary" id="quiz-next">السؤال التالي</button>
+                    <div class="quiz-footer" id="quiz-footer">
+                        <button class="btn-primary" id="quiz-next">السؤال التالي</button>
+                    </div>
                 </div>
             </div>
 

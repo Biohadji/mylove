@@ -6,7 +6,6 @@ class RomanticWheel {
         this.currentRotation = 0;
         this.prizes = WHEEL_PRIZES;
         this.currentWheel = null;
-        this.jokeIdx = 0;
     }
 
     init() {
@@ -14,7 +13,6 @@ class RomanticWheel {
         this._initialized = true;
         this.bindSelector();
         this.bindPlayBack();
-        this.bindJoke();
     }
 
     bindSelector() {
@@ -32,30 +30,6 @@ class RomanticWheel {
             document.getElementById('wheel-selector').style.display = 'block';
             this.currentWheel = null;
         });
-    }
-
-    bindJoke() {
-        document.getElementById('wheel-joke-reveal').addEventListener('click', () => this.revealWheelJoke());
-        document.getElementById('wheel-joke-next').addEventListener('click', () => this.showWheelJoke());
-        this.showWheelJoke();
-    }
-
-    showWheelJoke() {
-        if (!ROMANTIC_JOKES.length) return;
-        this.jokeIdx = Math.floor(Math.random() * ROMANTIC_JOKES.length);
-        const joke = ROMANTIC_JOKES[this.jokeIdx];
-        document.getElementById('wheel-joke-setup').textContent = joke.setup;
-        document.getElementById('wheel-joke-punch').textContent = joke.punch;
-        document.getElementById('wheel-joke-punch').style.display = 'none';
-        document.getElementById('wheel-joke-reveal').style.display = 'block';
-        SFX.play('pop');
-    }
-
-    revealWheelJoke() {
-        if (!ROMANTIC_JOKES[this.jokeIdx]) return;
-        document.getElementById('wheel-joke-punch').style.display = 'block';
-        document.getElementById('wheel-joke-reveal').style.display = 'none';
-        SFX.play('success');
     }
 
     selectWheel(wheelId) {
