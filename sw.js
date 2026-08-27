@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mylove-v7';
+const CACHE_NAME = 'mylove-v8';
 const ASSETS = [
     './',
     './index.html',
@@ -10,6 +10,8 @@ const ASSETS = [
     './js/puzzle.js',
     './js/games.js',
     './js/quiz.js',
+    './js/jokes-data.js',
+    './js/jokes.js',
     './js/app.js',
     './manifest.json',
     './img/icon-192.svg',

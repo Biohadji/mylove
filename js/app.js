@@ -181,6 +181,7 @@ const App = {
                 else if (screen === 'wheel') { this.showScreen('wheel-screen'); wheel.init(); }
                 else if (screen === 'puzzle') { this.showScreen('puzzle-screen'); games.init(); }
                 else if (screen === 'quiz') { this.showScreen('quiz-screen'); quiz.init(); }
+                else if (screen === 'jokes') { this.showScreen('jokes-screen'); jokes.init(); }
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
@@ -196,6 +197,7 @@ const App = {
         document.getElementById('wheel-back').addEventListener('click', () => this.showScreen('home-screen'));
         document.getElementById('puzzle-back').addEventListener('click', () => this.showScreen('home-screen'));
         document.getElementById('quiz-back').addEventListener('click', () => this.showScreen('home-screen'));
+        document.getElementById('jokes-back').addEventListener('click', () => this.showScreen('home-screen'));
 
         document.getElementById('spin-btn').addEventListener('click', () => wheel.spin());
         document.getElementById('result-close').addEventListener('click', () => {
@@ -354,7 +356,7 @@ const App = {
     },
 
     updateAllCoins() {
-        const els = ['coins-count', 'game-coins', 'wheel-coins', 'puzzle-coins', 'quiz-coins'];
+        const els = ['coins-count', 'game-coins', 'wheel-coins', 'puzzle-coins', 'quiz-coins', 'jokes-coins'];
         els.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.textContent = this.coins;
